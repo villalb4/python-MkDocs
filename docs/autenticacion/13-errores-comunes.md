@@ -115,4 +115,4 @@ Una compañera te dice: "Hago login en `/docs`, copio el `access_token` de la re
 
 ¡Terminaste el Capítulo 5! Tu API tiene registro, login, tokens con renovación, rutas protegidas, roles y las protecciones básicas de seguridad. En el último capítulo vas a escribir tests, ordenar el código y prepararla para publicarla.
 
-**Siguiente:** Capítulo 6 · Tests con pytest: primer test (en preparación).
+**Siguiente:** [Capítulo 6 · Tests con pytest: primer test →](../calidad-y-despliegue/01-pytest-primer-test.md)

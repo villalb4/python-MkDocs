@@ -4,10 +4,11 @@ Excluido del sitio publicado, igual que `PLAN.md`.
 
 ## Avance
 
-- Capítulos 0 a 5: completos (70 casillas tildadas en `PLAN.md`).
-- Falta: Capítulo 6 (6 páginas), Apéndices (4) y los dos pasos de GitHub (crear el repo, activar Pages).
-- La última página escrita (`autenticacion/13-errores-comunes.md`) termina con
-  `**Siguiente:** Capítulo 6 · Tests con pytest: primer test (en preparación).` → convertirlo en enlace al crear `calidad-y-despliegue/01-...md`.
+- Capítulos 0 a 6 y los 4 apéndices: completos (80 páginas; todas las casillas de contenido tildadas en `PLAN.md`).
+- La última página (`apendices/04-como-esta-hecha.md`) termina con "Volver al inicio". La cadena de "Siguiente" se revisó entera (80 páginas, coincide con el `nav:`).
+- Repo en GitHub: `git@github.com:villalb4/python-MkDocs.git` (`site_url: https://villalb4.github.io/python-MkDocs/`).
+- Falta: activar Pages en el repo (Settings → Pages → Source: GitHub Actions).
+- El build del workflow se simuló en un entorno limpio (`pip install -r requirements.txt` + `mkdocs build --strict`): anda con MkDocs 1.6.1 y Material 9.8.0. `requirements.txt` no fija versión.
 
 ## Cómo se trabajó cada página
 
@@ -44,10 +45,34 @@ Proyecto `tareas-api` (`uv init --no-package`), paquete `app/`:
 
 Versiones probadas: Python 3.12, FastAPI 0.162, SQLAlchemy 2.1.6, asyncpg 0.32, Alembic 1.20.1, pydantic-settings 2.16, pwdlib 0.3.1, PyJWT 2.15.1, PostgreSQL 17, Docker 29.8, Compose v5.6, uv 0.13.1.
 
-## Notas para el Capítulo 6
+## Cambios al código de la API en el Capítulo 6
 
-- Starlette avisa que usar `httpx` con `TestClient` está deprecado y sugiere `httpx2`: revisarlo en "Tests de endpoints con `httpx`".
-- `debug=True` devuelve el traceback en los `500` (visto en el Capítulo 3): retomarlo en "Preparar la app para producción".
-- Los `print` del `lifespan` se reemplazan por logs en "Logs: qué registrar y qué no".
-- Material for MkDocs avisa que deja de tener soporte el 5 de mayo de 2027 (sucesor: Zensical); mencionarlo en el apéndice "Cómo está hecha esta guía".
-- Páginas que pasan un poco de 200 renglones: python/03, 07, 08, 16, 18, 19, 21; fastapi/08, 10 (225); base-de-datos/05, 06, 07, 10.
+Sobre el estado del Capítulo 5 (descripto arriba):
+
+- `pyproject.toml`: grupo `dev` con `pytest` y `ruff`; `[tool.pytest]` con `pythonpath = ["."]` y `testpaths = ["tests"]`; `[tool.ruff]` con `line-length = 120` y `extend-exclude = ["migraciones"]`.
+- `tests/`: `test_seguridad.py` (3), `test_tokens.py` (4), `conftest.py` (fixture `cliente`: cambia `URL_BASE_DATOS` a la base `tareas_test` antes de importar la app, recrea las tablas con `create_all` + `motor.dispose()`, vacía `intentos_por_ip`, `with TestClient(app)`), `test_endpoints.py` (4), `test_tareas.py` (helper `iniciar_sesion` + 2), `test_logs.py` (`caplog`, 1). Total: `14 passed`.
+- `app/seguridad.py`: `datetime.UTC` en vez de `timezone.utc` (arreglo de Ruff, UP017).
+- `app/routers/tareas.py`: el decorador de `borrar_tarea` partido en tres renglones (`ruff format`).
+- Logs: `basicConfig` en `app/main.py` con `nivel_log`; el SQL se activa con `logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)` si `debug` (el motor ya no tiene `echo`); loggers en `main.py` (arranque/apagado), `routers/auth.py` (registro, login fallido con email, cuenta desactivada, login correcto) y `dependencias.py` (429).
+- `app/config.py`: sin `clave_api`; `url_base_datos: SecretStr`, `clave_jwt: SecretStr = Field(min_length=32)`, `nivel_log` (`str` en la página; `Literal[...]` en la solución del ejercicio). `.get_secret_value()` en `db.py`, `migraciones/env.py` y `seguridad.py`.
+- `docker-compose.prod.yml` (db y api sin `ports`, `restart: unless-stopped`, `command` con `alembic upgrade head` y `--forwarded-allow-ips='*'`, servicio `proxy` con `caddy:2`) y `Caddyfile` (`localhost { reverse_proxy api:8000 }`).
+
+Versiones nuevas: pytest 9.1.1, Ruff 0.17.2 (sus reglas por defecto incluyen `UP`, `I`, `B`, `RUF`, `LOG`, etc.), httpx2 2.16 (viene con `fastapi[standard]`), Caddy 2.11.
+
+## Notas para los apéndices
+
+- `docker run --env-file .env` no saca las comillas: `NOMBRE_APP="Tareas (desarrollo)"` llega con comillas (Compose sí las saca). Afecta al ejemplo de `docker/07-dockerfile.md`; va en "Errores comunes por capítulo".
+- `docker rm` sin `-v` deja el volumen anónimo de PostgreSQL (la chuleta recomienda `docker rm -v`). `alembic revision --autogenerate` sin cambios genera una migración vacía.
+- `DEBUG=false docker compose up` no cambia el `env_file` (solo la interpolación del YAML); `environment:` sí lo pisa.
+- Material for MkDocs deja de tener soporte el 5 de mayo de 2027 (sucesor: Zensical): mencionarlo en "Cómo está hecha esta guía". `mkdocs build` muestra un aviso sobre MkDocs 2 (se calla con `NO_MKDOCS_2_WARNING=1`); no es un warning del build.
+- Errores reales del Capítulo 6 que pueden ir a "Errores comunes": `ModuleNotFoundError: No module named 'app'` (falta `pythonpath`), `attached to a different loop` (falta `dispose()`), `KeyError: 'access_token'` (límite de intentos en los tests), `database "tareas_test" does not exist`, el SQL duplicado con `echo` + `basicConfig`, `ValueError: Unknown level: 'info'`, todos detrás del proxy con la misma IP.
+
+## Notas del Capítulo 5 ya resueltas en el Capítulo 6
+
+- El aviso de `httpx` con `TestClient`: no aparece con `fastapi[standard]`, que trae `httpx2` (explicado en `calidad-y-despliegue/02`).
+- El traceback con `debug=True` en los `500`: en `calidad-y-despliegue/05`.
+- Los `print` del `lifespan` reemplazados por logs: en `calidad-y-despliegue/04`.
+
+## Largo de las páginas
+
+Páginas que pasan un poco de 200 renglones: python/03, 07, 08, 16, 18, 19, 21; fastapi/08, 10 (225); base-de-datos/05, 06, 07, 10; calidad-y-despliegue/01 (204).

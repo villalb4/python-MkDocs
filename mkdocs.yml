@@ -1,6 +1,6 @@
 site_name: Python + FastAPI desde cero
 site_description: Guía paso a paso de Python y FastAPI para principiantes, con comparaciones con Express, Django y Spring Boot.
-# site_url: https://<usuario>.github.io/<repo>/   # completar cuando exista el repo en GitHub
+site_url: https://villalb4.github.io/python-MkDocs/
 
 # El plan de trabajo vive en docs/_plan/ pero no se publica.
 exclude_docs: |
@@ -128,5 +128,15 @@ nav:
       - Dónde guardar el token: autenticacion/11-donde-guardar-token.md
       - Recomendaciones de seguridad: autenticacion/12-recomendaciones-seguridad.md
       - Errores comunes: autenticacion/13-errores-comunes.md
-  # - "6 · Calidad y despliegue": calidad-y-despliegue/
-  # - Apéndices: apendices/
+  - "6 · Calidad y despliegue":
+      - Primer test con pytest: calidad-y-despliegue/01-pytest-primer-test.md
+      - Tests de endpoints: calidad-y-despliegue/02-tests-de-endpoints.md
+      - Ruff: calidad-y-despliegue/03-ruff.md
+      - Logs: calidad-y-despliegue/04-logs.md
+      - Preparar para producción: calidad-y-despliegue/05-preparar-para-produccion.md
+      - Desplegar el backend: calidad-y-despliegue/06-desplegar.md
+  - Apéndices:
+      - Glosario: apendices/01-glosario.md
+      - Chuleta de comandos: apendices/02-chuleta-de-comandos.md
+      - Errores comunes por capítulo: apendices/03-errores-comunes.md
+      - Cómo está hecha esta guía: apendices/04-como-esta-hecha.md

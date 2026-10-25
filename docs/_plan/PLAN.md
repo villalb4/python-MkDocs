@@ -84,20 +84,20 @@ Va en el repo como `docs/_plan/PLAN.md`. Las casillas se tildan a medida que se 
 - [x] Errores comunes de autenticación
 
 ## Capítulo 6 · Calidad y despliegue
-- [ ] Tests con pytest: primer test
-- [ ] Tests de endpoints con `httpx`
-- [ ] Linter y formateo con Ruff
-- [ ] Logs: qué registrar y qué no
-- [ ] Preparar la app para producción (variables, debug apagado)
-- [ ] Desplegar el backend (opciones y trade-offs)
+- [x] Tests con pytest: primer test
+- [x] Tests de endpoints con `httpx`
+- [x] Linter y formateo con Ruff
+- [x] Logs: qué registrar y qué no
+- [x] Preparar la app para producción (variables, debug apagado)
+- [x] Desplegar el backend (opciones y trade-offs)
 
 ## Apéndices
-- [ ] Glosario
-- [ ] Chuleta de comandos de `uv`, Docker y FastAPI
-- [ ] Errores comunes por capítulo
-- [ ] Cómo está hecha esta guía (MkDocs, GitHub Pages)
+- [x] Glosario
+- [x] Chuleta de comandos de `uv`, Docker y FastAPI
+- [x] Errores comunes por capítulo
+- [x] Cómo está hecha esta guía (MkDocs, GitHub Pages)
 
 ## Pendientes antes de arrancar
-- [ ] Crear el repo en GitHub y confirmar el nombre
+- [x] Crear el repo en GitHub y confirmar el nombre (`villalb4/python-MkDocs`)
 - [x] Esqueleto: `mkdocs.yml`, `requirements.txt`, workflow de deploy, `docs/index.md`
 - [ ] Activar GitHub Pages en el repo (Settings → Pages → Source: GitHub Actions)

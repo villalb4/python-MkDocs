@@ -25,6 +25,7 @@ Una API completa con:
 | 4 · Docker | Contenedores, imágenes y Docker Compose. |
 | 5 · Autenticación | Contraseñas, tokens y permisos. |
 | 6 · Calidad y despliegue | Tests, linter, logs y producción. |
+| Apéndices | Glosario, chuleta de comandos, errores comunes y cómo está hecha la guía. |
 
 Cada página explica **una sola idea**, empieza diciendo qué necesitás haber leído antes y termina con un mini ejercicio.
 

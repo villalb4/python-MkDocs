@@ -1,0 +1,132 @@
+site_name: Python + FastAPI desde cero
+site_description: Guía paso a paso de Python y FastAPI para principiantes, con comparaciones con Express, Django y Spring Boot.
+# site_url: https://<usuario>.github.io/<repo>/   # completar cuando exista el repo en GitHub
+
+# El plan de trabajo vive en docs/_plan/ pero no se publica.
+exclude_docs: |
+  _plan/
+
+theme:
+  name: material
+  language: es
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/weather-night
+        name: Cambiar a modo oscuro
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/weather-sunny
+        name: Cambiar a modo claro
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.footer
+    - navigation.top
+    - toc.follow
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+# Las páginas que todavía no existen se agregan acá a medida que se escriben.
+# Orden completo de capítulos: ver docs/_plan/PLAN.md.
+nav:
+  - Inicio: index.md
+  - "0 · Introducción":
+      - Qué vas a aprender: introduccion/01-que-vas-a-aprender.md
+      - Qué necesitás instalar: introduccion/02-que-necesitas-instalar.md
+      - Cómo leer las comparaciones: introduccion/03-como-leer-las-comparaciones.md
+  - "1 · Python básico":
+      - Qué es Python: python/01-que-es-python.md
+      - Instalar y usar uv: python/02-instalar-uv.md
+      - Variables y tipos básicos: python/03-variables-y-tipos.md
+      - Strings y f-strings: python/04-strings-y-f-strings.md
+      - Listas: python/05-listas.md
+      - Diccionarios: python/06-diccionarios.md
+      - Condicionales: python/07-condicionales.md
+      - Bucles: python/08-bucles.md
+      - Funciones: python/09-funciones.md
+      - Parámetros y argumentos: python/10-parametros.md
+      - Módulos e import: python/11-modulos-e-import.md
+      - Paquetes y __init__.py: python/12-paquetes.md
+      - __name__ y __file__: python/13-name-y-file.md
+      - Rutas con pathlib: python/14-pathlib.md
+      - Variables de entorno: python/15-variables-de-entorno.md
+      - Manejo de errores: python/16-manejo-de-errores.md
+      - Clases básicas: python/17-clases-basicas.md
+      - Type hints: python/18-type-hints.md
+      - async / await: python/19-async-await.md
+      - Decoradores: python/20-decoradores.md
+      - Entornos virtuales: python/21-entornos-virtuales.md
+  - "2 · FastAPI":
+      - Qué es FastAPI: fastapi/01-que-es-fastapi.md
+      - Primera app: fastapi/02-primera-app.md
+      - Uvicorn y recarga: fastapi/03-uvicorn.md
+      - Métodos HTTP: fastapi/04-metodos-http.md
+      - Parámetros de ruta y query: fastapi/05-parametros.md
+      - Body con JSON: fastapi/06-body-json.md
+      - Modelos de Pydantic: fastapi/07-pydantic-modelos.md
+      - Códigos de estado: fastapi/08-codigos-de-estado.md
+      - Documentación automática: fastapi/09-documentacion.md
+      - APIRouter: fastapi/10-apirouter.md
+      - Dependencias con Depends: fastapi/11-depends.md
+      - Configuración: fastapi/12-pydantic-settings.md
+      - CORS: fastapi/13-cors.md
+      - lifespan: fastapi/14-lifespan.md
+  - "3 · Base de datos":
+      - Qué es una base de datos: base-de-datos/01-que-es-una-base-de-datos.md
+      - Tablas, filas y columnas: base-de-datos/02-tablas-filas-columnas.md
+      - Qué es PostgreSQL: base-de-datos/03-que-es-postgresql.md
+      - ORM y SQLAlchemy: base-de-datos/04-orm-sqlalchemy.md
+      - Definir un modelo: base-de-datos/05-definir-un-modelo.md
+      - Sesiones y conexión: base-de-datos/06-sesiones-y-conexion.md
+      - CRUD con SQLAlchemy: base-de-datos/07-crud.md
+      - Relaciones: base-de-datos/08-relaciones.md
+      - Migraciones con Alembic: base-de-datos/09-migraciones-que-son.md
+      - Primera migración: base-de-datos/10-primera-migracion.md
+  - "4 · Docker":
+      - Contenedores e imágenes: docker/01-contenedores-e-imagenes.md
+      - Instalar Docker: docker/02-instalar-docker.md
+      - PostgreSQL con docker run: docker/03-postgres-docker-run.md
+      - Docker Compose: docker/04-docker-compose.md
+      - Volúmenes: docker/05-volumenes.md
+      - Variables de entorno en Compose: docker/06-variables-entorno-compose.md
+      - Dockerfile de la API: docker/07-dockerfile.md
+      - API y base juntas: docker/08-api-y-base-juntas.md
+  - "5 · Autenticación":
+      - Autenticar y autorizar: autenticacion/01-autenticar-y-autorizar.md
+      - Contraseñas en texto plano: autenticacion/02-contrasenas-texto-plano.md
+      - Hashing con argon2: autenticacion/03-hashing-argon2.md
+      - Modelo de usuario: autenticacion/04-modelo-de-usuario.md
+      - Registro: autenticacion/05-registro.md
+      - Login: autenticacion/06-login.md
+      - Qué es un JWT: autenticacion/07-jwt.md
+      - Proteger rutas: autenticacion/08-proteger-rutas.md
+      - Roles y permisos: autenticacion/09-roles.md
+      - Refresh tokens: autenticacion/10-refresh-tokens.md
+      - Dónde guardar el token: autenticacion/11-donde-guardar-token.md
+      - Recomendaciones de seguridad: autenticacion/12-recomendaciones-seguridad.md
+      - Errores comunes: autenticacion/13-errores-comunes.md
+  # - "6 · Calidad y despliegue": calidad-y-despliegue/
+  # - Apéndices: apendices/
